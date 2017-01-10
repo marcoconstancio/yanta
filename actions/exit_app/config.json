@@ -1,0 +1,8 @@
+{
+    "name": "Exit Application",
+    "description": "Closes the application",
+    "category": "core",
+    "icon": "exit_app.png",
+    "shortcut": "",
+    "class_file": "exit_app"
+}

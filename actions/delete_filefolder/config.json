@@ -1,0 +1,8 @@
+{
+    "name": "Delete folder",
+    "description": "Deletes teh selected folder",
+    "category": "core",
+    "icon": "delete_filefolder.png",
+    "shortcut": "",
+    "class_file": "delete_filefolder"
+}

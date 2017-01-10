@@ -1,0 +1,8 @@
+{
+    "name": "Hyperlink",
+    "description": "Add a hyperlink",
+    "category": "content_objects",
+    "icon": "hyperlink.png",
+    "shortcut": "",
+    "class_file": "hyperlink"
+}

@@ -1,0 +1,8 @@
+{
+    "name": "Italic",
+    "description": "Applies italic formating",
+    "category": "formatting",
+    "icon": "italic.png",
+    "shortcut": "",
+    "class_file": "italic"
+}

@@ -1,0 +1,8 @@
+{
+    "name": "Text indent",
+    "description": "Indents selected text",
+    "category": "formatting",
+    "icon": "indent.png",
+    "shortcut": "",
+    "class_file": "indent"
+}

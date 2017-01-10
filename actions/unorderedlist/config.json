@@ -1,0 +1,8 @@
+{
+    "name": "Unurdered List",
+    "description": "Adds a unordered list",
+    "category": "content_object",
+    "icon": "unorderedlist.png",
+    "shortcut": "",
+    "class_file": "unorderedlist"
+}

@@ -1,0 +1,27 @@
+{
+  "printer": {
+    "Color Mode": "1",
+    "Paper Size": "0",
+    "Paper Unit": "0",
+    "Orientation": "0",
+    "Paper Margins": "5;5;5;5",
+    "Dots Per Inch": "150"
+  },
+  "view": {
+    "Show Filetree Types": false,
+    "Default Color Style": "basic.css",
+    "Show Filetree Sizes": false,
+    "Show Filetree Dates": false
+  },
+  "general": {
+    "system": "Linux",
+    "Libs path": "/home/marco/Dropbox/1_DEVICES/All/projectos/yanta/libs/python/libs",
+    "Default extension": "html",
+    "Actions path": "/home/marco/Dropbox/1_DEVICES/All/projectos/yanta/libs/python/actions",
+    "Save image path": false,
+    "Plugins path": "/home/marco/Dropbox/1_DEVICES/All/projectos/yanta/libs/python/plugins",
+    "Default viewer": "html_editor",
+    "Notes path": "/home/marco/Dropbox/1_DEVICES/All/projectos/yanta/libs/python/notes",
+    "Show Extensions": []
+  }
+}

@@ -1,0 +1,8 @@
+{
+    "name": "Save As Note",
+    "description": "Save the current note with user specified directory",
+    "category": "core",
+    "icon": "saveas_note.png",
+    "shortcut": "Ctrl+E",
+    "class_file": "saveas_note"
+}

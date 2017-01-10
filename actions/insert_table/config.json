@@ -1,0 +1,9 @@
+{
+    "name": "Insert Table",
+    "description": "Inserts a table",
+    "category": "content_objects",
+    "icon": "insert_table.png",
+    "shortcut": "",
+    "class_file": "insert_table",
+    "submenu":["Insert header row", "Insert row above","Insert row below","Insert column left", "Insert column right", "Merge cells", "Split cells", "Remove row", "Remove column", "Remove table"]
+}

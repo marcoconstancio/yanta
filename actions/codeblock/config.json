@@ -1,0 +1,8 @@
+{
+    "name": "Codeblock",
+    "description": "Apply a code block formating",
+    "category": "formatting",
+    "icon": "codeblock.png",
+    "shortcut": "",
+    "class_file": "codeblock"
+}

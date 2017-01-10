@@ -1,0 +1,8 @@
+{
+    "name": "Ordered List",
+    "description": "Adds a ordered list",
+    "category": "content_objects",
+    "icon": "orderedlist.png",
+    "shortcut": "",
+    "class_file": "orderedlist"
+}

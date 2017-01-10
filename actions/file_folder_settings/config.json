@@ -1,0 +1,8 @@
+{
+    "name": "Folder Settings",
+    "description": "Folder Settings",
+    "category": "core",
+    "icon": "file_folder_settings.png",
+    "shortcut": "",
+    "class_file": "file_folder_settings"
+}

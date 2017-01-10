@@ -1,0 +1,8 @@
+{
+    "name": "Settings",
+    "description": "Display window with application settings",
+    "category": "core",
+    "icon": "settings.png",
+    "shortcut": "",
+    "class_file": "settings"
+}

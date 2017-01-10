@@ -1,0 +1,8 @@
+{
+    "name": "Preformated text",
+    "description": "Apply a preformated formating",
+    "category": "formatting",
+    "icon": "preformated_text.png",
+    "shortcut": "",
+    "class_file": "preformated_text"
+}

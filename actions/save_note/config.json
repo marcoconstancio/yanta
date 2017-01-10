@@ -1,0 +1,8 @@
+{
+    "name": "Save Note",
+    "description": "Save the current note",
+    "category": "core",
+    "icon": "save_note.png",
+    "shortcut": "Ctrl+S",
+    "class_file": "save_note"
+}

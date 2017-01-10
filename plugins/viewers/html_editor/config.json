@@ -1,0 +1,20 @@
+{
+    "name": "Html Editor",
+    "description": "WYSIWYG Editor for rich text notes",
+    "note_description": "Rich text note",
+    "open_extensions": ["html", "htm"],
+    "save_extensions": ["html", "htm"],
+    "extensions_description": { "html":"HTML File", "htm":"HTM File" },
+    "class_file": "html_editor",
+    "supported_actions": ["new_note","open_note","save_note","saveas_note","printer",
+                          "undo","redo","copy_text","cut_text","paste_text","removeformat",
+                          "apply_style","bold","italic","heading_1","heading_2","heading_3",
+                          "heading_4","heading_5","heading_6","orderedlist","unorderedlist",
+                          "indent","outdent","blockquote","codeblock",
+                          "preformated_text","horizontal_rule","insert_image","hyperlink",
+                          "insert_checkbox","insert_table","settings","information","exit_app"],
+    "default_context_menu_replace": "False",
+    "context_menu_actions": ["insert_table"]
+
+
+}

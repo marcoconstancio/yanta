@@ -1,0 +1,8 @@
+{
+    "name": "Blockquote",
+    "description": "Adds a blockquote",
+    "category": "formatting",
+    "icon": "blockquote.png",
+    "shortcut": "",
+    "class_file": "blockquote"
+}

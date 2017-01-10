@@ -1,0 +1,8 @@
+{
+    "name": "Remove Formating",
+    "description": "Removes the style formating",
+    "category": "formatting",
+    "icon": "removeformat.png",
+    "shortcut": "",
+    "class_file": "removeformat"
+}

@@ -1,0 +1,8 @@
+{
+    "name": "Bold",
+    "description": "Applies bold formating",
+    "category": "formatting",
+    "icon": "bold.png",
+    "shortcut": "",
+    "class_file": "bold"
+}

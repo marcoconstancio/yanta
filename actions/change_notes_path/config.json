@@ -1,0 +1,8 @@
+{
+    "name": "Change notes path",
+    "description": "Change notes path",
+    "category": "core",
+    "icon": "",
+    "shortcut": "",
+    "class_file": "change_notes_path"
+}

@@ -1,0 +1,8 @@
+{
+    "name": "Horizontal Rule",
+    "description": "Inserts a Horizontal Rule",
+    "category": "formatting",
+    "icon": "horizontal_rule.png",
+    "shortcut": "",
+    "class_file": "horizontal_rule"
+}

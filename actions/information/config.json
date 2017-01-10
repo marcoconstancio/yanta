@@ -1,0 +1,8 @@
+{
+    "name": "Information",
+    "description": "Display window with application information",
+    "category": "core",
+    "icon": "information.png",
+    "shortcut": "",
+    "class_file": "information"
+}

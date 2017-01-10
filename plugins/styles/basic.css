@@ -1,0 +1,11 @@
+body { }
+p{ margin-top:3px; margin-bottom:3px; font-size:12px;  }
+table, td, th  { border: 1px solid black;  border-collapse: collapse; }
+table { margin-top:5px; }
+h1 {font-size: 200%; margin-top:3px; margin-bottom:3px; }
+h2 {font-size: 190%; margin-top:3px; margin-bottom:3px; }
+h3 {font-size: 180%; margin-top:3px; margin-bottom:3px; }
+h4 {font-size: 160%; margin-top:3px; margin-bottom:3px; }
+h5 {font-size: 140%; margin-top:3px; margin-bottom:3px; }
+h6 {font-size: 120%; margin-top:3px; margin-bottom:3px; }
+

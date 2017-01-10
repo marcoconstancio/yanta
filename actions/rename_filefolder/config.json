@@ -1,0 +1,8 @@
+{
+    "name": "Renames Folder",
+    "description": "Renames the selected folder",
+    "category": "formatting",
+    "icon": "rename_filefolder.png",
+    "shortcut": "",
+    "class_file": "rename_filefolder"
+}

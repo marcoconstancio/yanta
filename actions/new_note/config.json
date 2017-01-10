@@ -1,0 +1,8 @@
+{
+    "name": "New Note",
+    "description": "Creates a new note",
+    "category": "core",
+    "icon": "new_note.png",
+    "shortcut": "Ctrl+N",
+    "class_file": "new_note"
+}

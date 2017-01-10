@@ -1,0 +1,8 @@
+{
+    "name": "Open Note",
+    "description": "Open a note",
+    "category": "core",
+    "icon": "open_note.png",
+    "shortcut": "Ctrl+N",
+    "class_file": "open_note"
+}

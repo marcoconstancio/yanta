@@ -1,0 +1,8 @@
+{
+  "001-MainActions": [
+    "new_note", "open_note", "save_note", "saveas_note","separator","printer","separator","undo","redo","separator","copy_text","cut_text","paste_text","separator","settings","information","exit_app"
+  ],
+  "003-Actions": [
+    "removeformat","apply_style","bold","italic",["heading_1","heading_2","heading_3","heading_4","heading_5","heading_6"],"separator","orderedlist","unorderedlist","separator","indent","outdent","separator","blockquote","codeblock","preformated_text","separator","horizontal_rule","insert_image","hyperlink","insert_checkbox","insert_table"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+    "name": "Insert Image",
+    "description": "Insert a image on the note area",
+    "category": "content_objects",
+    "icon": "insert_image.png",
+    "shortcut": "",
+    "class_file": "insert_image"
+}

@@ -1,0 +1,8 @@
+{
+    "name": "Insert Checkbox",
+    "description": "Inserts a checkbox",
+    "category": "content_objects",
+    "icon": "insert_checkbox.png",
+    "shortcut": "",
+    "class_file": "insert_checkbox"
+}

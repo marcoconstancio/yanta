@@ -1,0 +1,8 @@
+{
+    "name": "Print Note",
+    "description": "Prints the current note",
+    "category": "core",
+    "icon": "printer.png",
+    "shortcut": "Ctrl+P",
+    "class_file": "printer"
+}

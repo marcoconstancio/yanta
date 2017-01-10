@@ -1,0 +1,8 @@
+{
+    "name": "Copy Text",
+    "description": "Copy the selected text to the clipboard",
+    "category": "content",
+    "icon": "copy_text.png",
+    "shortcut": "Ctrl+C",
+    "class_file": "copy_text"
+}

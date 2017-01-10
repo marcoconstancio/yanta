@@ -1,0 +1,8 @@
+{
+    "name": "New Folder",
+    "description": "Creates a new folder",
+    "category": "core",
+    "icon": "new_folder.png",
+    "shortcut": "",
+    "class_file": "new_folder"
+}

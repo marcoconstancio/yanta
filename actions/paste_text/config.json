@@ -1,0 +1,8 @@
+{
+    "name": "Paste Text",
+    "description": "Pastes the text from the clipboard to the editor",
+    "category": "content",
+    "icon": "paste_text.png",
+    "shortcut": "Ctrl+v",
+    "class_file": "paste_text"
+}

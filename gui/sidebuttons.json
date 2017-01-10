@@ -1,0 +1,5 @@
+{
+  "001-MainActions": [
+    "new_note","new_folder","rename_filefolder","delete_filefolder",["change_notes_path","treeview_options"]
+  ]
+}

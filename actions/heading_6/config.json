@@ -1,0 +1,8 @@
+{
+    "name": "Heading 6",
+    "description": "Applies Heading 6",
+    "category": "formatting",
+    "icon": "heading_6.png",
+    "shortcut": "",
+    "class_file": "heading_6"
+}

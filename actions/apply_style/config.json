@@ -1,0 +1,8 @@
+{
+    "name": "Apply Style",
+    "description": "Applies a css style",
+    "category": "formatting",
+    "icon": "apply_style.png",
+    "shortcut": "",
+    "class_file": "apply_style"
+}

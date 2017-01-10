@@ -1,0 +1,8 @@
+{
+    "name": "Cut Text",
+    "description": "Cuts the selected text to the clipboard",
+    "category": "content",
+    "icon": "cut_text.png",
+    "shortcut": "Ctrl+X",
+    "class_file": "cut_text"
+}

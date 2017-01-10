@@ -1,0 +1,16 @@
+{
+    "name": "Text Editor",
+    "description": "Text editor for simple notes",
+    "note_description": "Simple text notes",
+    "open_extensions": ["txt"],
+    "save_extensions": ["txt"],
+    "extensions_description": { "txt":"Text File" },
+    "class_file": "text_editor",
+    "supported_actions": ["new_note","open_note","save_note","saveas_note","printer",
+                          "undo","redo","copy_text","cut_text","paste_text","settings",
+                          "information","exit_app"],
+    "default_context_menu_replace": "False",
+    "context_menu_actions": []
+
+
+}

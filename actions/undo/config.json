@@ -1,0 +1,8 @@
+{
+    "name": "Undo",
+    "description": "Undo the last operation",
+    "category": "content",
+    "icon": "undo.png",
+    "shortcut": "Ctrl+Z",
+    "class_file": "undo"
+}

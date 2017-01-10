@@ -1,0 +1,8 @@
+{
+    "name": "Text outdent",
+    "description": "Removes text indentation",
+    "category": "formatting",
+    "icon": "outdent.png",
+    "shortcut": "",
+    "class_file": "outdent"
+}

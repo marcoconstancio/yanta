@@ -1,0 +1,8 @@
+{
+    "name": "Redo",
+    "description": "Redo the last operation",
+    "category": "content",
+    "icon": "redo.png",
+    "shortcut": "Ctrl+Y",
+    "class_file": "redo"
+}

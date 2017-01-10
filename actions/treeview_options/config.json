@@ -1,0 +1,11 @@
+{
+    "name": "Treeview options",
+    "description": "Teeview display options",
+    "category": "core",
+    "icon": "",
+    "shortcut": "",
+    "class_file": "treeview_options",
+    "submenu":["Show Filetree Sizes", "Show Filetree Types", "Show Filetree Dates"],
+    "submenu_checked": "True"
+
+}
