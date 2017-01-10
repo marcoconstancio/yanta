@@ -1,6 +1,6 @@
 # Yanta
 
-Yanta a simple note taking application built in python. It can save text notes in txt files and more complex notes.
+Yanta a simple note taking application built in python. It can save text notes in txt files and more complex notes in html files.
 
 ![Screenshot 1](screenshot1.jpg)
 
