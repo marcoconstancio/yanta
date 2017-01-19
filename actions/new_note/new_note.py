@@ -37,7 +37,7 @@ class new_note:
 
         # OPTIONS WINDOWS
         datagroup = [('Type', note_descriptions),
-                     ('Name', 'note_' + time.strftime("%Y%m%d") + "_"+ time.strftime("%H%M"))]
+                     ('Name', 'note_' + time.strftime("%Y%m%d") + "_" + time.strftime("%H%M"))]
 
         result = fedit(datagroup, 'Table options')
 
@@ -59,7 +59,7 @@ class new_note:
             data['note_viewer'].set_writeable()
 
             data['functions'].session('current_note', file_name)
-            data['functions'].session('current_note_location', os.path.dirname(file_name) + os.path.sep)
+            data['functions'].session('current_note_location', os.path.dirname(file_name)) #+ os.path.sep)
 
             # Runs available actions load_function method in other to prepare
             # the program/editor/... for those action

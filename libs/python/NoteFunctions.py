@@ -145,7 +145,7 @@ class NoteFunctions():
 
 
     def get_styles(self):
-        styles = []
+        styles = [('', 'No Style')]
         for style in self.yanta_data['styles']:
             styles.append((style, style[:-4][:1].upper() +style[:-4][1:]))
 
@@ -310,7 +310,7 @@ class NoteFunctions():
                 # does not exists, might be:
                 # - only subfolder name in var
                 # - full path with os change
-                # - full path on a usb pen/diks
+                # - full path on a usb pen/disk
                 # current action: resets to current dir + 'notes' subfolder
                 config['general']['Notes path'] = os.path.join(self.yanta_data['base_dir'], 'notes')
                 self.save_configfile(config)
@@ -344,9 +344,10 @@ class NoteFunctions():
         config['view'] = {  'Show Filetree Sizes': False,
                             'Show Filetree Types': False,
                             'Show Filetree Dates': False,
-                            'Default Color Style':'basic.css',
-                            'Apply in new notes':True,
-                            'Apply in opened notes':False
+                            'Default Color Style': 'basic.css',
+                            'Apply style in new notes': True,
+                            'Apply style in opened notes': False,
+                            'Embed Images in notes': True
         }
 
         config['printer'] = { 'Color Mode': '1',
@@ -403,7 +404,7 @@ class NoteFunctions():
             file_location = os.path.join(create_directory,filename)
 
             try:
-                f = open(file_location,'w+', encoding='UTF-8')
+                f = open(file_location, 'w+', encoding='UTF-8')
                 f.write(fileName)
                 f.close()
                 return file_location
@@ -416,7 +417,7 @@ class NoteFunctions():
         file_content = ""
 
         if file_name is not None and os.path.isfile(file_name):
-            with open(file_name, encoding='UTF-8', errors="ignore") as fd:
+            with open(file_name, errors="ignore", encoding='UTF-8') as fd:
                 file_content = fd.read() #self.convert_markup(fd.read(), file_name, 'import', 'open')
                 # if file_content is not None:
                 #     file_content = file_content
@@ -426,7 +427,7 @@ class NoteFunctions():
 
     def save_file(self, filename=None, content=None):
         if filename is not None and content is not None:
-            with open(filename, "w+", encoding='UTF-8') as fd:
+            with open(filename, "w+") as fd:#, encoding='UTF-8') as fd:
                 fd.write(content)
 
     def convert_content(self, content, type='html'):

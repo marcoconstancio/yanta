@@ -5,25 +5,15 @@ import string
 import sys
 from functools import partial
 
-from PyQt5 import QtCore
-from PyQt5.QtCore import pyqtSignal   # analysis:ignore
-from PyQt5.QtCore import pyqtSlot  # analysis:ignore
-from PyQt5.QtCore import pyqtProperty  # analysis:ignore
-from PyQt5 import QtGui
-from PyQt5 import QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QDir, QFileInfo
 from PyQt5.QtGui import QFont
 from PyQt5.QtPrintSupport import QPrinter, QPrinterInfo
-from PyQt5.QtWidgets import QApplication, QMainWindow
-from PyQt5.QtWidgets import QFileDialog
-from PyQt5.QtWidgets import QFileSystemModel
-from PyQt5.QtWidgets import QLineEdit
-from PyQt5.QtWidgets import QTextEdit
+from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QFileSystemModel, QLineEdit, QTextEdit, QStatusBar, QPushButton
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "libs")))
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "libs", "python")))
 
-from bs4 import BeautifulSoup
 from formlayout import fedit
 from FileTreeview import FileTreeview
 from NoteFunctions import NoteFunctions
@@ -44,11 +34,6 @@ class Ui_MainWindow(object):
         sidebuttons_config = self.functions.get_sidebuttons_config()
 
         self.note_viewer = NoteViewer({'NoteFunctions':self.functions})
-
-        # self.default_note_viewer_name = self.functions.config('Default viewer')
-        # self.note_viewer = self.functions.get_viewer(self.default_note_viewer_name)
-        # self.note_viewer_config = self.functions.get_viewer_config(self.default_note_viewer_name)
-        # self.available_note_viewers = self.functions.available_note_viewers()
 
         self.functions.session('editor_load_functions', {})
         self.functions.session('editor_load_files_code', {})
@@ -78,6 +63,7 @@ class Ui_MainWindow(object):
         ## LAYOUT
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setObjectName("horizontalLayout")
+
         self.splitter = QtWidgets.QSplitter(self.centralwidget)
         self.splitter.setOrientation(QtCore.Qt.Horizontal)
         self.splitter.setObjectName("splitter")
@@ -92,7 +78,6 @@ class Ui_MainWindow(object):
         #File treeview
         self.note_treeview = FileTreeview(self.verticalLayoutWidget, self.config('Notes path'), self.functions.get_open_extensions())
         self.file_model = self.note_treeview.get_file_model()
-
         #self.note_treeview.cliked.connect(self.treeview_doubleclick)
 
         self.SideLayout.addWidget(self.note_treeview)
@@ -118,13 +103,8 @@ class Ui_MainWindow(object):
                     pushbutton_submenu = QtWidgets.QMenu(MainWindow)
 
                     if buttonbar_item:
-                        #pushbutton_item_menu = QtWidgets.QActionGroup(MainWindow, exclusive=False)
-
                         for item in buttonbar_item:
-                            #toolbar_button = self.create_button(actions_config[first_item], MainWindow, None)
-
                             pushbutton_submenu.addAction(self.create_button(actions_config[item], MainWindow, None))
-                            #pushbutton_item_menu.addAction(ba)
 
                         pushbutton_item['submenu'] = pushbutton_submenu
                 else:
@@ -132,8 +112,6 @@ class Ui_MainWindow(object):
 
                 icon_path = os.path.join(pushbutton_item['path'],pushbutton_item['icon'])
                 item = QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(icon_path)),  None, self.verticalLayoutWidget)
-
-                #item =  QtWidgets.QPushButton(QtGui.QIcon(QtGui.QPixmap(icon_path)),  None, self.verticalLayoutWidget)
 
                 if pushbutton_item['name']:
                     item.setObjectName(pushbutton_item['name'])
@@ -154,9 +132,7 @@ class Ui_MainWindow(object):
                     if hasattr(pushbutton_item['instance'], 'process'):
                         item.clicked.connect(partial(pushbutton_item['instance'].process, self.app_data, {}))
 
-
                 self.fileListButtonsLayout.addWidget(item)
-
 
         self.SideLayout.addLayout(self.fileListButtonsLayout)
 
@@ -178,12 +154,9 @@ class Ui_MainWindow(object):
         self.noteTabLayout.setObjectName("noteTabLayout")
 
         self.noteTabLayout.addTab(self.note_viewer, "Content")
-        #self.noteTabLayout.addTab(self.note_markup_content, "Markup")
         #self.noteTabLayout.addTab(self.note_html_content, "Html")
 
-        #self.note_viewer_test.show()
         self.functions.session('current_tabview', 0)
-
         self.noteTabLayout.currentChanged.connect(self.update_current_tabeditor)
 
         #Note Contact Size policy
@@ -199,10 +172,8 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        #notefunctions.get_format_plugins_defs()
-        toolbars_defs = {}
 
-        #print(actions_config['open_note']['instance'])
+        toolbars_defs = {}
 
         self.toolbar_buttons = {}
 
@@ -214,7 +185,6 @@ class Ui_MainWindow(object):
         # required for the note viewer to know which buttons to enable/disable
         # depeding on the opened file
         self.note_viewer.set_toolbar_buttons(self.toolbar_buttons)
-
 
         # Set the initial toolbar buttons states
         initial_supported_actions = ['new_note','new_folder','change_notes_path','delete_filefolder','exit_app',
@@ -232,9 +202,6 @@ class Ui_MainWindow(object):
         self.apply_settings()
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
-    # def insert_image(self, param):
-    #     self.note_viewer.insert_image(self.functions.session('current_note_location'))
 
     def build_toolbar(self, toolbar_name, toolbar_config, actions_config):
         toolBar = QtWidgets.QToolBar(toolbar_name[4:])
@@ -254,6 +221,7 @@ class Ui_MainWindow(object):
                     # Adds submenu
                     popupMenu = QtWidgets.QMenu(MainWindow)
                     toolbar_subbuttons = {}
+
                     for item in remaining_items:
                         toolbar_subbuttons[item] = self.create_button(actions_config[item], MainWindow, None)
                         popupMenu.addAction(toolbar_subbuttons[item])
@@ -263,23 +231,19 @@ class Ui_MainWindow(object):
 
                     # Adds button and submenu to toolbar
                     toolBar.addAction(toolbar_button)
-
             else:
                 if toolbar_item == "separator":
                     toolBar.addSeparator()
                 else:
                     toolbar_button = self.create_button(actions_config[toolbar_item], MainWindow, None)
-
                     self.toolbar_buttons[actions_config[toolbar_item]['class_file']] = toolbar_button
-
                     toolBar.addAction(toolbar_button)
 
         return toolBar
 
     def update_current_tabeditor(self, idx):
-        #print(idx)
         if idx == 0:
-            self.note_viewer.call_function('set_html',self.note_html_content.toPlainText())
+            self.note_viewer.call_function('set_html', self.note_html_content.toPlainText())
 
         #elif idx == 1:
         #    self.note_markup_content.setPlainText(self.functions.convert_content(self.note_viewer.get_html(), 'markup'))
@@ -289,10 +253,6 @@ class Ui_MainWindow(object):
         #self.note_html_content.setPlainText(self.note_viewer.get_content())
 
         self.functions.session('current_tabview', idx)
-
-    # def get_extra_plugins_defs(self):
-    #     button_actions = self.functions.get_extra_plugins_defs()
-    #     return button_actions
 
     def apply_settings(self):
         self.note_treeview.setColumnHidden(1, not self.config('Show Filetree Sizes', None, 'view'))
@@ -308,42 +268,14 @@ class Ui_MainWindow(object):
         file_name_filters.append("*.randomext")
         self.file_model.setNameFilters(file_name_filters)
 
+    def set_status_message(self, message, time=5000):
+        if message:
+            self.statusbar.showMessage(message, time)
 
-
-
-    # def new_note(self,param=None):
-    #     #http://rra.etc.br/MyWorks/2009/08/07/pyqt-04-dialogos-com-qinputdialog/
-    #     filename, ok = QtWidgets.QInputDialog.getText(None, 'New Note',
-    #                                                   'Enter a name for the note with the desired extension.',
-    #                                                   QLineEdit.Normal, "Note_xpto." + self.functions.get_extensions('default'))
-    #     if ok:
-    #         treeview_selection_index = self.note_treeview.selectedIndexes()
-    #         if treeview_selection_index:
-    #             current_path = self.treeview_getselection(treeview_selection_index[0])
-    #         else:
-    #             current_path = self.config('Notes path')
-    #
-    #         file_name = self.functions.new_note(current_path, filename)
-    #         if file_name:
-    #             self.open_note(file_name)
-
-    # def new_folder(self):
-    #     foldername, ok = QtWidgets.QInputDialog.getText(None, 'New Folder', 'Enter a name for the new folder.',
-    #                                                     QLineEdit.Normal, "New Folder")
-    #     if ok:
-    #         treeview_selection_index = self.note_treeview.selectedIndexes()
-    #         if treeview_selection_index:
-    #             current_path = self.treeview_getselection(treeview_selection_index[0])
-    #         else:
-    #             current_path = self.config('Notes path')
-    #
-    #         self.functions.new_folder(current_path, foldername)
-
-    # def delete_filefolder(self):
-    #     treeview_selection_index = self.note_treeview.selectedIndexes()
-    #     if treeview_selection_index:
-    #         current_path = self.treeview_getselection(treeview_selection_index[0])
-    #         self.functions.delete_filefolder(current_path)
+    def set_status_progress(self, message, time=5000):
+        if message:
+            self.statusbar.show()
+            self.statusbar.showMessage(message, time)
 
     def format_filename(self, s):
         """Take a string and return a valid filename constructed from the string.
@@ -360,16 +292,12 @@ class Ui_MainWindow(object):
         filename = filename.replace(' ', '_')  # I don't like spaces in filenames.
         return filename
 
-
     def create_button(self, button_item, MainWindow, custom_options={}):
-        # print(self)
         if 'path' in button_item and 'icon' in button_item:
             image_path = os.path.join(button_item['path'], button_item['icon'])
             item = QtWidgets.QAction(QtGui.QIcon(QtGui.QPixmap(image_path)), button_item['name'], MainWindow)
         else:
             item = QtWidgets.QAction(QtGui.QIcon(QtGui.QPixmap("")), button_item['name'], MainWindow)
-
-        #app_data = self.app_data
 
         if 'description' in button_item and len(button_item['description']) > 0:
             item.setToolTip( button_item['name'] + " (" + button_item['description'] + ")")
@@ -441,36 +369,13 @@ class Ui_MainWindow(object):
 
                 self.functions.session('editor_load_functions', editor_load_functions)
 
-            # LOAD FILES AND CODE FUNCTIONS - javascript code and files, css style, etc to prevent loading more once
-            # if hasattr(button_item['instance'], 'get_load_process_files_code'):
-            #     editor_load_files_code = self.functions.session('editor_load_files_code')
-            #
-            #     if 'parent_name' in button_item.keys():
-            #         if button_item['parent_name'] not in editor_load_files_code:
-            #             editor_load_files_code[button_item['parent_name']] = {
-            #                 'editor_load_files_code':button_item['instance'].get_load_process_files_code,
-            #                 'app_data':self.app_data,
-            #                 'custom_options':custom_options
-            #             }
-            #     else:
-            #         if button_item['name'] not in editor_load_files_code:
-            #             editor_load_files_code[button_item['name']] = {
-            #                 'editor_load_files_code': button_item['instance'].get_load_process_files_code,
-            #                 'app_data': self.app_data,
-            #                 'custom_options': custom_options
-            #             }
-            #
-            #     self.functions.session('editor_load_files_code', editor_load_files_code)
-
             # Function that are to run when a the button is clicked
             if hasattr(button_item['instance'], 'process'):
                 item.triggered.connect(lambda: button_item['instance'].process(self.app_data, custom_options))
 
         return item
 
-
-
-    def create_submenu(self,submenu_options,MainWindow):
+    def create_submenu(self,submenu_options, MainWindow):
         popupMenu = QtWidgets.QMenu(MainWindow)
         for array_item in submenu_options:
             popupMenu.addAction(self.create_button(array_item, MainWindow))
@@ -489,7 +394,6 @@ class Ui_MainWindow(object):
                 self.functions.rename_filefolder(current_name, new_name)
         else:
             pass
-
 
     def treeview_getselection(self, index=None):
         indexItem = self.file_model.index(index.row(), 0, index.parent())
@@ -516,7 +420,6 @@ class Ui_MainWindow(object):
             self.functions.save_configfile()
             self.apply_settings()
 
-
     def change_notes_path(self, param=None):
         notes_path = QFileDialog.getExistingDirectory(None, "Select Direcory", self.config('Notes path'))
 
@@ -533,25 +436,6 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Yanta"))
-
-# print("aaaaa")
-# print(__name__)
-#
-# if __name__ == "__main__":
-#     print("11111")
-#     notefunctions = NoteFunctions()
-#     print("2222")
-#     app = QApplication(sys.argv)
-#     print("333")
-#     MainWindow = QMainWindow()
-#     print("4444")
-#     ui = Ui_MainWindow()
-#     print("555")
-#     ui.setupUi(MainWindow, notefunctions)
-#     print("6666")
-#     MainWindow.show()
-#     print("777")
-#     sys.exit(app.exec_())
 
 notefunctions = NoteFunctions()
 app = QApplication(sys.argv)

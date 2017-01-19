@@ -26,9 +26,9 @@ class settings:
                        ]
         view_tab = [(None, '<b>Note Editor</b>'),
                     ('Default Color Style', [data['functions'].config('Default Color Style', None, 'view')] + data['functions'].get_styles()),
-                    ('Apply in new notes', data['functions'].config('Apply in new notes', None, 'view')),
-                    ('Apply in opened notes', data['functions'].config('Apply in opened notes', None, 'view')),
-
+                    ('Apply style in new notes', data['functions'].config('Apply style in new notes', None, 'view')),
+                    ('Apply style in opened notes', data['functions'].config('Apply style in opened notes', None, 'view')),
+                    ('Embed Images in notes', data['functions'].config('Embed Images in notes', None, 'view')),
                     (None, '<b>Filetree</b>'),
                     ('Show Filetree Sizes', data['functions'].config('Show Filetree Sizes')),
                     ('Show Filetree Types', data['functions'].config('Show Filetree Types')),

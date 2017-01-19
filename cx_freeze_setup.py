@@ -49,6 +49,7 @@ include_files=[
 			"libs\\python\\NoteFunctions.py",
 			"libs\\python\\NoteViewer.py",
 			"libs\\python\\formlayout",
+			"libs\\python\\pyquery",
 			"notes\\",
 			"plugins\\"
             ]
@@ -82,7 +83,7 @@ if sys.platform == "win32":
 setup(  name = "yanta",
         version = "0.1",
 		author = 'Marco Constâncio',
-        description = "Yet Another Note Taking Application.",
+        description = "yanta",
 		options = {"build_exe": {
                            # "append_script_to_exe": append_script_to_exe,
                            # "base":                 base,

@@ -1,37 +1,44 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import base64
+
+import sys
+import os.path
+import string
 import webbrowser
+import shutil
+import json
+import base64
 
 from PyQt5 import QtWidgets
 from PyQt5 import QtGui
+from PyQt5.QtCore import QFile
 from PyQt5.QtCore import QUrl
 from PyQt5.QtWebKit import QWebSettings
 from PyQt5.QtWidgets import QInputDialog, QFileDialog
 from PyQt5.QtWebKitWidgets import QWebView, QWebPage
-from bs4 import BeautifulSoup
 
-import os.path
-import shutil
-import json
-import sys
-from PyQt5.QtCore import QFile
-import string
+# from bs4 import BeautifulSoup
+from libs.python.pyquery import PyQuery as pq
+from lxml import etree
+import urllib
+import time
+from PyQt5.QtWidgets import QProgressDialog
+from PyQt5.QtWidgets import QApplication
+
+#from PIL import Image
+import requests
+from io import BytesIO
 
 class html_editor(QWebView):
-
     def __init__(self, parent=None, html=None, css_file=None):
+
     #def __init__(self, html=None, style_filename=None):
         super(html_editor, self).__init__(parent)
-        #super(Wysiwygefitor, self).__init__(None)
 
         # http://stackoverflow.com/questions/21357157/is-there-any-solution-for-the-qtwebkit-memory-leak
-        # http://stackoverflow.com/questions/6955281/how-to-stop-qhttp-qtwebkit-from-caching-pages http://qt-project.org/doc/qt-5.0/qtwebkit/qwebsettings.html
         # https://github.com/lycying/seeking
-        # http://jsfiddle.net/62cun/3/embedded/
 
         #self.page().setContentEditable(True)
-
         #self.execute_js('document.designMode = "on"')
         self.file_dialog_dir = '.'
         # TO CHECK
@@ -53,7 +60,6 @@ class html_editor(QWebView):
         # Miscellaneous
         settings.setAttribute(QWebSettings.LinksIncludedInFocusChain, True)
         settings.setAttribute(QWebSettings.DeveloperExtrasEnabled, True)
-
         # settings.setAttribute(QWebSettings.AutoLoadImages, False)
 
         # Disable Hyperlinks following, open url on system browser
@@ -65,7 +71,6 @@ class html_editor(QWebView):
         else:
             self.set_readonly(True)
 
-
         # config
         config_file_path = os.path.join(os.path.dirname(__file__), 'config.json')
         self.config = None
@@ -76,27 +81,22 @@ class html_editor(QWebView):
 
         self.context_menu_actions = []
 
-
-
         # TO CHECK
         # https://github.com/gen2brain/pyhtmleditor/blob/master/src/pyhtmleditor/htmleditor.py
         # https://github.com/kovidgoyal/calibre/blob/master/src/calibre/gui2/comments_editor.py
 
-
     #if css_file:
         #    self.apply_stylefile(css_file)
-
 
         ############# TO IMPLEMENT ##########
         #self.note_editor.execute_js(self.functions.get_javascript_plugins())
 
-
         #self.load_functions = []
         #self.settings().setAttribute(QWebSettings.AutoLoadImages, False)
 
-
         #QWebSettings.globalSettings()->setAttribute(QWebSettings::DeveloperExtrasEnabled, true);
         #QWebSettings.globalSettings().setAttribute(QWebSettings.OfflineWebApplicationCacheEnabled, True)
+
 
     def get_config(self):
         return self.config
@@ -134,9 +134,47 @@ class html_editor(QWebView):
     def get_html(self,relative_path=None):
         html = self.page().mainFrame().toHtml()
 
-        # BETTER PERFOMANCE WITH prettify DEACTIVATED ? (MORE TESTING)
-        #content_soup = BeautifulSoup(html, "lxml")# "html.parser")
-        #return content_soup.prettify()#(formatter="minimal")
+        pd_content = pq(html)
+
+        if pd_content('img').length > 0:
+            num_img = 0
+            max_num_img = 0
+
+            # Dertemines the number of image to download and process
+            for img in pd_content('img'):
+                if "base64" not in img.attrib['src']:
+                    max_num_img += 1
+
+            # There are image to download and process
+            if max_num_img > 0:
+                progress_dialog = QProgressDialog(self)
+                progress_dialog.setWindowTitle('Please Wait')
+                progress_dialog.setLabelText('Downloading and processing images. Please wait.')
+                progress_dialog.setRange(num_img, max_num_img)
+                progress_dialog.setValue(num_img)
+                progress_dialog.setCancelButton(None)
+                progress_dialog.show()
+                QApplication.processEvents()
+
+                for img in pd_content('img'):
+                    if "base64" not in img.attrib['src']:
+                        if 'http' in img.attrib['src'].lower() or 'ftp' in img.attrib['src'].lower():
+                            # Downloads images
+                            response = requests.get(img.attrib['src'])
+
+                            # Generates base64 of the image
+                            base64_img = base64.b64encode(response.content).decode('ascii')
+                            # Build uri
+                            uri = "data:" + response.headers['Content-Type'] + ";" + "base64," + base64_img
+                            # Reasings src attrbiute with the uri data
+                            img.attrib['src'] = uri
+
+                        # Updates progress bar
+                        num_img = num_img + 1
+                        progress_dialog.setValue(num_img)
+                        QApplication.processEvents()
+
+                html = pd_content.html()
 
         return html
 
@@ -150,7 +188,9 @@ class html_editor(QWebView):
     def open_file(self, file_path):
         fd = QFile(file_path)
         if fd.open(QFile.ReadOnly):
-            self.setContent(fd.readAll(), "text/html")
+            # Required for webkit to access local images
+            base_url = QUrl.fromLocalFile(os.path.dirname(os.path.join(file_path, '')))
+            self.setContent(fd.readAll(), "text/html", base_url)
             fd.close()
 
     def toggle_bold(self, parm=None):
@@ -160,7 +200,7 @@ class html_editor(QWebView):
         self.page().triggerAction(QWebPage.ToggleItalic)
 
     def heading(self, param=None):
-        if param and param in ['heading_1','heading_2','heading_3','heading_4','heading_5','heading_6']:
+        if param and param in ['heading_1', 'heading_2', 'heading_3', 'heading_4', 'heading_5', 'heading_6']:
             cmd_str = str("document.execCommand('formatblock', false, '%s');" % str('h'+param[8]))
             self.execute_js(cmd_str)
 
@@ -191,17 +231,21 @@ class html_editor(QWebView):
         #                document.execCommand("inserthtml",false,"<pre><code>" + range + "</code></pre>");'
         #     self.execute_js(cmd_str)
 
-    #http://jsfiddle.net/62cun/3/embedded/
     def block_code(self, param=None):
         if self.page().hasSelection():
+            # document.execCommand('formatblock', false, 'p')
+            # var
+            # listId = window.getSelection().focusNode.parentNode;
+            # $(listId).addClass("oder2");
+
             cmd_str = 'var range = document.getSelection().getRangeAt(0); \
                        document.execCommand("inserthtml",false,"<code>" + range + "</code>");'
             self.execute_js(cmd_str)
 
     def insert_checkbox(self, param=None):
         if self.page().hasSelection():
-            cmd_str = 'var range = document.getSelection().getRangeAt(0); \
-                       document.execCommand("inserthtml",false,"<input type=\'checkbox\' name=\'test\' checked>" + selObj.toString() + range);'
+            #cmd_str = 'var range = document.getSelection().getRangeAt(0); \
+            #           document.execCommand("inserthtml",false,"<input type=\'checkbox\' name=\'test\' checked>" + selObj.toString() + range);'
             self.execute_js(cmd_str)
 
     def indent(self, param=None):
@@ -240,21 +284,32 @@ class html_editor(QWebView):
             image_encoded_data = base64.b64encode(open(param, "rb").read())
             self.insert_html("<img src='data:image/" + fileextension + ";base64," + image_encoded_data.decode('ascii') + "' />")
 
-    # def insert_image(self, image_path=None):
-    #     image_path, extra = QFileDialog.getOpenFileName(None, 'Select Image', self.file_dialog_dir, "All files (*.*);;JPEG (*.jpg *.jpeg);;TIFF (*.tif)")
-    #
-    #     if image_path:
-    #         if new_location:
-    #             try:
-    #                 shutil.copy2(image_path, new_location)
-    #                 image_path = os.path.join(new_location,os.path.basename(image_path))
-    #                 file_path = QUrl.fromLocalFile(image_path).toString()
-    #                 self.execute_js("document.execCommand('insertImage', false, '%s');" % file_path)
-    #             except (OSError, IOError):
-    #                 print("Unable to copy the file to :" + str(new_location))
-    #         else:
-    #             file_path = QUrl.fromLocalFile(image_path).toString()
-    #             self.execute_js("document.execCommand('insertImage', false, '%s');" % file_path)
+    def insert_image(self, image_path=None, new_image_path=None):
+        #image_path, extra = QFileDialog.getOpenFileName(None, 'Select Image', self.file_dialog_dir, "All files (*.*);;JPEG (*.jpg *.jpeg);;TIFF (*.tif)")
+
+        image_path_base, file_extension = os.path.splitext(image_path)
+        file_name = os.path.basename(image_path)
+        copied = False
+
+        if image_path and new_image_path:
+            if not os.path.isfile(os.path.join(new_image_path, file_name)):
+                try:
+                    shutil.copy2(image_path, new_image_path)
+                    copied = True
+                except (OSError, IOError):
+                    print("Unable to copy the file to :" + str(new_image_path))
+            else:
+                try:
+                    new_location = image_path_base + '_' + time.strftime("%Y%m%d") + "_" + time.strftime("%H%M%S") + file_extension
+                    shutil.copy2(image_path, new_location)
+                    copied = True
+                except (OSError, IOError):
+                    print("Unable to copy the file to :" + str(new_location))
+
+            if copied:
+                # file_path = QUrl.fromLocalFile(new_location).toString()
+                # self.execute_js("document.execCommand('insertImage', false, '%s');" % file_path)
+                self.insert_html("<img src ='" + file_name + "' />")
 
     def execute_js(self, param=None):
         if param:

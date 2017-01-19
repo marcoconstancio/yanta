@@ -15,7 +15,12 @@ class insert_image:
         image_path, extra = QFileDialog.getOpenFileName(None,
                                                         'Select Image',
                                                         data['functions'].session('current_note_location'),
-                                                         "All Images (*.jpg *.jpeg *.png *.gif *.bmp)")
+                                                        "All Images (*.jpg *.jpeg *.png *.gif *.bmp)")
 
         if image_path:
-            data['note_viewer'].call_function('insert_embedded_image',image_path)
+            embed_images = data['functions'].config('Embed Images in notes')
+
+            if embed_images:
+                data['note_viewer'].call_function('insert_embedded_image', image_path)
+            else:
+                data['note_viewer'].call_function('insert_image', image_path, data['functions'].session('current_note_location'))
