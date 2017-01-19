@@ -233,19 +233,14 @@ class html_editor(QWebView):
 
     def block_code(self, param=None):
         if self.page().hasSelection():
-            # document.execCommand('formatblock', false, 'p')
-            # var
-            # listId = window.getSelection().focusNode.parentNode;
-            # $(listId).addClass("oder2");
-
             cmd_str = 'var range = document.getSelection().getRangeAt(0); \
                        document.execCommand("inserthtml",false,"<code>" + range + "</code>");'
             self.execute_js(cmd_str)
 
     def insert_checkbox(self, param=None):
         if self.page().hasSelection():
-            #cmd_str = 'var range = document.getSelection().getRangeAt(0); \
-            #           document.execCommand("inserthtml",false,"<input type=\'checkbox\' name=\'test\' checked>" + selObj.toString() + range);'
+            cmd_str = 'var range = document.getSelection().getRangeAt(0); \
+                       document.execCommand("inserthtml",false,"<input type=\'checkbox\' name=\'test\' checked>" + selObj.toString() + range);'
             self.execute_js(cmd_str)
 
     def indent(self, param=None):

@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QFileDialog
 
 class save_note:
     def __init__(self):
-        colorChanged = pyqtSignal()
+        pass
 
     @staticmethod
     def process(data, args):
