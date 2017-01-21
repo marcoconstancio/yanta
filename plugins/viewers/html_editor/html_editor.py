@@ -186,12 +186,18 @@ class html_editor(QWebView):
             self.set_html(content)
 
     def open_file(self, file_path):
-        fd = QFile(file_path)
-        if fd.open(QFile.ReadOnly):
-            # Required for webkit to access local images
-            base_url = QUrl.fromLocalFile(os.path.dirname(os.path.join(file_path, '')))
-            self.setContent(fd.readAll(), "text/html", base_url)
+        with open(file_path, encoding='UTF-8', errors="ignore") as fd:
+            base_url = QUrl.fromLocalFile(os.path.join(os.path.dirname(file_path), ''))
+            self.setHtml(fd.read(), base_url)
             fd.close()
+
+        # Generates uft8 bugs
+        # fd = QFile(file_path)
+        # if fd.open(QFile.ReadOnly):
+        #     # Required for webkit to access local images
+        #     base_url = QUrl.fromLocalFile(os.path.join(os.path.dirname(file_path),''))
+        #     self.setContent(fd.readAll(), "text/html", base_url)
+        #     fd.close()
 
     def toggle_bold(self, parm=None):
         self.page().triggerAction(QWebPage.ToggleBold)
