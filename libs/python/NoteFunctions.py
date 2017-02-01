@@ -469,13 +469,15 @@ class NoteFunctions():
             try:
                 root_dir = os.path.dirname(current_name)
                 #check for extension
+
                 if os.path.isfile(current_name):
                     fileName, fileExtension = os.path.splitext(new_name)
                     if fileExtension:
                         os.rename(current_name,os.path.join(root_dir,new_name))
                     else:
-                        #TODO:add function to load config
-                        os.rename(current_name,os.path.join(root_dir,new_name+".md"))
+                        fileName_old, fileExtension_old = os.path.splitext(current_name)
+
+                        os.rename(current_name,os.path.join(root_dir, new_name + fileExtension_old))
                 else:
                     os.rename(current_name,os.path.join(root_dir,new_name))
 

@@ -272,6 +272,8 @@ class html_editor(QWebView):
 
     def remove_format(self, param=None):
         self.page().triggerAction(QWebPage.RemoveFormat)
+        self.execute_js("document.execCommand('formatBlock', false, 'p');")
+
 
     def insert_link(self, param=None):
         link, ok = QInputDialog.getText(None, 'Insert Link','Enter a url for the link (ex: http://www.google.com).') #QLineEdit.Normal

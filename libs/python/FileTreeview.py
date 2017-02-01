@@ -3,6 +3,7 @@
 
 from PyQt5.QtCore import QDir
 from PyQt5 import QtWidgets
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QTreeView
 from PyQt5.QtWidgets import QFileSystemModel
 
@@ -32,6 +33,8 @@ class FileTreeview(QTreeView):
         self.setAcceptDrops(True)
         self.setDragEnabled(True)
 
+        self.setSortingEnabled(True)
+        self.sortByColumn(0, Qt.AscendingOrder)
         self.setAllColumnsShowFocus(True)
         self.setModel(self.file_model)
 
