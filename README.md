@@ -9,7 +9,7 @@ Yanta a simple note taking application built in python. It can save text notes i
 For installation you need to install (tested on linux and windows 8.1)
 
 * Python 3 - https://www.python.org/
-* Python modules - cssselect, lxml
+* Python modules - cssselect, requests, lxml
 * PyQt <=5.5 - https://sourceforge.net/projects/pyqt/files/PyQt5/
 
 To install the python modules, install pip during the python installation and after the installation run on the command line:
