@@ -22,6 +22,7 @@ class NoteFunctions():
             # The application is not frozen
             # Change this bit to match where you store your data files:
             self.yanta_data['base_dir'] = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+
             # script_dir = os.path.dirname(__file__)
             # main_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
             # full_real_path = os.path.realpath(sys.argv[0])

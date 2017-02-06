@@ -27,13 +27,33 @@ copy_dependent_files=True
 #11) create a shared zip file called library.zip which will contain all modules shared by all executables which are built 
 create_shared_zip=False
 #12) comma separated list of names of modules to exclude
-excludes = ['_gtkagg', '_tkagg', 'bsddb', 'curses', 'email', 'pywin.debugger',
+excludes = ['_gtkagg', '_tkagg', 'bsddb', 'curses', 'pywin.debugger',
             'pywin.debugger.dbgcon', 'pywin.dialogs', 'tcl',
             'Tkconstants', 'Tkinter']
 #13) include the icon in the frozen executables on the Windows platform and alongside the frozen executable on other platforms
 icon=False
 #13) comma separated list of names of modules to include
-includes = ["json", "PyQt5.QtCore","PyQt5.QtGui","PyQt5.QtPrintSupport"]
+## INSTALL DEPENDECIES
+# pip install cssselect webob requests
+### LXML BINARIES IN http://www.lfd.uci.edu/~gohlke/pythonlibs/
+### lxml-3.6.4-cp34-cp34m-win32.whl file for python 3.4 32bits
+# pip install lxml-3.6.4-cp34-cp34m-win32.whl
+includes = [
+	"json",
+	"cssselect",
+	"webob",
+	"email",
+	"requests",
+	"lxml",
+	"lxml._elementpath",
+	"lxml.etree",
+	"lxml.html",
+	"lxml.ElementInclude",
+	"xml.etree.ElementTree",
+    "xml.etree.ElementPath",
+	"PyQt5.QtCore",
+	"PyQt5.QtGui",
+	"PyQt5.QtPrintSupport"]
 #15) list containing files to be copied to the target directory; 
 #  it is expected that this list will contain strings or 2-tuples for the source and destination; 
 #  the source can be a file or a directory (in which case the tree is copied except for .svn and CVS directories); 
@@ -56,7 +76,7 @@ include_files=[
 #16) include the script module in the shared zip file
 include_in_shared_zip=False
 #17) include the Microsoft Visual C runtime DLLs and (if necessary) the manifest file required to run the executable without needing the redistributable package installed
-include_msvcr =False
+include_msvcr =True
 #18) the name of the script to use during initialization which, if given as a relative path, will be joined with the initscripts subdirectory of the cx_Freeze installation; the default value is "Console"
 init_script=""
 #19) comma separated list of packages to be treated as namespace packages (path is extended using pkgutil)
@@ -78,7 +98,7 @@ zip_includes=[]
 # console application).
 base = None
 if sys.platform == "win32":
-    base = "Win32GUI"
+   base = "Win32GUI"
 
 setup(  name = "yanta",
         version = "0.1",

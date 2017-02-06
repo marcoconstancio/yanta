@@ -6,13 +6,17 @@ import sys
 from functools import partial
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QDir, QFileInfo
 from PyQt5.QtGui import QFont
-from PyQt5.QtPrintSupport import QPrinter, QPrinterInfo
-from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QFileSystemModel, QLineEdit, QTextEdit, QStatusBar, QPushButton
+from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QLineEdit, QTextEdit
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "libs")))
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "libs", "python")))
+if getattr(sys, 'frozen', False):
+    # frozen
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(sys.executable), "libs")))
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(sys.executable), "libs", "python")))
+else:
+    # unfrozen
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "libs")))
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "libs", "python")))
 
 from formlayout import fedit
 from FileTreeview import FileTreeview

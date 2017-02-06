@@ -5,10 +5,10 @@ from .pyquery import no_default
 from webob import Request
 from webob import Response
 
-try:
-    from restkit.contrib.wsgi_proxy import HostProxy
-except ImportError:
-    HostProxy = no_default  # NOQA
+#try:
+#    from restkit.contrib.wsgi_proxy import HostProxy
+#except ImportError:
+HostProxy = no_default  # NOQA
 
 
 class PyQuery(Base):

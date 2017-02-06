@@ -6,7 +6,7 @@
 
 try:
     import webob
-    import restkit
+    #import restkit
 except ImportError:
     from .pyquery import PyQuery
 else:
