@@ -14,9 +14,7 @@ class information:
         text = "YANTA\n"
         text += "Yet Another Note Taking Application\n\n"
 
-        text += "Libs Used:\n"
-        text += "Pyqt5, Beautiful Soup, formlayout\n"
-        text += "Javacript Libs Used: jquery, jquery-ui\n"
+        text += "Libs Used: Pyqt5, Pyquery, formlayout, jQuery\n"
         text += "Icons by: FatCow hosting - www.fatcow.com/free-icons\n"
 
         reply = QMessageBox.question(None, 'Information',

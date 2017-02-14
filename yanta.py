@@ -248,9 +248,6 @@ class Ui_MainWindow(object):
     def update_current_tabeditor(self, idx):
         if idx == 0:
             self.note_viewer.call_function('set_html', self.note_html_content.toPlainText())
-
-        #elif idx == 1:
-        #    self.note_markup_content.setPlainText(self.functions.convert_content(self.note_viewer.get_html(), 'markup'))
         elif idx == 1:
             self.note_html_content.setPlainText(self.note_viewer.get_content())
 

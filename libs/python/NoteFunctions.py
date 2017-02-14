@@ -428,18 +428,9 @@ class NoteFunctions():
 
     def save_file(self, filename=None, content=None):
         if filename is not None and content is not None:
-            with open(filename, "w+") as fd:#, encoding='UTF-8') as fd:
+            # with open(filename, "w+") as fd:
+            with open(filename, "w+", encoding='UTF-8') as fd:
                 fd.write(content)
-
-    def convert_content(self, content, type='html'):
-        if content is None:
-            return ""
-        if type == 'html':
-            return self.convert_markup(content, self.session('current_note'),'import')
-        elif type == 'markup':
-            return self.convert_markup(content, self.session('current_note'),'export')
-        else:
-            return ""
 
     def new_folder(self, current_path=None, foldername=None):
         if current_path and foldername:
