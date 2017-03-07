@@ -15,7 +15,7 @@ class apply_style:
         style_class_name = "yanta_main_style"
 
         available_styles = [data['functions'].config('Default Color Style', None, 'view')]
-        available_styles += [('nostyle','No Style')]
+        # available_styles += [('nostyle','No Style')]
         available_styles += data['functions'].get_styles()
 
         defs = [(None, '<b>Note Editor</b>'),
@@ -23,9 +23,10 @@ class apply_style:
 
         result = fedit(defs, "Select Style")
 
+
         if result:
-            if result[0] == 'nostyle':
-                style_file_content = ""
+            if not result[0]:
+                style_file_content = "  "
             else:
                 file_path = os.path.join(data['functions'].config('Plugins path'), 'styles', result[0])
                 style_file_content = data['functions'].open_file(file_path)

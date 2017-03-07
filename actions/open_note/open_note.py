@@ -54,7 +54,7 @@ class open_note:
                         if 'load_process_function' in func:
                             func['load_process_function'](func['app_data'],func['custom_options'])
 
-                if data['functions'].config('Apply in opened notes'):
+                if data['functions'].config('Apply style in opened notes'):
                     #print(data['functions'].call_function('apply_stylefile',config('Apply in all notes'))
                     style_class_name = "yanta_main_style"
                     file_path = os.path.join(data['functions'].config('Plugins path'), 'styles', data['functions'].config('Default Color Style'))
