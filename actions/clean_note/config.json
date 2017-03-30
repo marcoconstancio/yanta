@@ -1,0 +1,8 @@
+{
+    "name": "Clean note",
+    "description": "Clean specified html elements and attributes.",
+    "category": "formatting",
+    "icon": "clean_note.png",
+    "shortcut": "",
+    "class_file": "clean_note"
+}
